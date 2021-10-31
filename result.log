@@ -1,0 +1,42 @@
+eugene@lenovo:~/pg-for-go-devs/lesson-5/hotel-reservation-pgsql$ go test ./... -tags=integration_tests -v -count 1
+?       github.com/1r0npipe/hotel-reservation-pgsql/cmd/service [no test files]
+=== RUN   TestGetPhonesByEmailPrefix
+=== RUN   TestGetPhonesByEmailPrefix/case_#0
+    list_test.go:45: prefix: alidd, expected resp code: 200
+=== RUN   TestGetPhonesByEmailPrefix/case_#1
+    list_test.go:45: prefix: ALidd, expected resp code: 200
+=== RUN   TestGetPhonesByEmailPrefix/case_#2
+    list_test.go:45: prefix: , expected resp code: 400
+2021/10/31 19:15:51 got an incorrect email prefix: the passed prefix is empty
+=== RUN   TestGetPhonesByEmailPrefix/case_#3
+    list_test.go:45: prefix: alidd, expected resp code: 500
+2021/10/31 19:15:51 a request to DB failed: failed to get phones by email prefix: some err
+--- PASS: TestGetPhonesByEmailPrefix (0.00s)
+    --- PASS: TestGetPhonesByEmailPrefix/case_#0 (0.00s)
+    --- PASS: TestGetPhonesByEmailPrefix/case_#1 (0.00s)
+    --- PASS: TestGetPhonesByEmailPrefix/case_#2 (0.00s)
+    --- PASS: TestGetPhonesByEmailPrefix/case_#3 (0.00s)
+PASS
+ok      github.com/1r0npipe/hotel-reservation-pgsql/pkg/email-hint/http 0.003s
+=== RUN   TestGetPhonesByEmailPrefix
+=== RUN   TestGetPhonesByEmailPrefix/test_case_#0
+=== RUN   TestGetPhonesByEmailPrefix/test_case_#1
+=== RUN   TestGetPhonesByEmailPrefix/test_case_#2
+=== RUN   TestGetPhonesByEmailPrefix/test_case_#3
+--- PASS: TestGetPhonesByEmailPrefix (0.00s)
+    --- PASS: TestGetPhonesByEmailPrefix/test_case_#0 (0.00s)
+    --- PASS: TestGetPhonesByEmailPrefix/test_case_#1 (0.00s)
+    --- PASS: TestGetPhonesByEmailPrefix/test_case_#2 (0.00s)
+    --- PASS: TestGetPhonesByEmailPrefix/test_case_#3 (0.00s)
+PASS
+ok      github.com/1r0npipe/hotel-reservation-pgsql/pkg/email-hint/service      0.003s
+?       github.com/1r0npipe/hotel-reservation-pgsql/pkg/email-hint/storage      [no test files]
+2021/10/31 19:15:51 postgresql://hoteladmin:parolshik@127.0.0.1:49185/hotelreservation?sslmode=disable
+2021/10/31 19:15:52 postgresql://hoteladmin:parolshik@127.0.0.1:49185/hotelreservation?sslmode=disable
+2021/10/31 19:15:53 postgresql://hoteladmin:parolshik@127.0.0.1:49185/hotelreservation?sslmode=disable
+2021/10/31 19:15:53 postgresql://hoteladmin:parolshik@127.0.0.1:49185/hotelreservation?sslmode=disable
+=== RUN   TestGetPhonesByEmailPrefix
+2021/10/31 19:15:53 postgresql://hoteladmin:parolshik@127.0.0.1:49185/hotelreservation?sslmode=disable
+--- PASS: TestGetPhonesByEmailPrefix (0.01s)
+PASS
+ok      github.com/1r0npipe/hotel-reservation-pgsql/pkg/email-hint/storage/test 2.661s

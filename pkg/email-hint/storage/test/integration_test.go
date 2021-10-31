@@ -49,7 +49,6 @@ type teardownPack struct {
 	OldEnvVars map[string]string
 }
 
-const dataDir = "data"
 
 type setupResult struct {
 	Pool              *dockertest.Pool
@@ -125,7 +124,7 @@ func runPostgresContainer(pool *dockertest.Pool, testFileDir string) (*dockertes
 	postgresContainer, err := pool.RunWithOptions(
 		&dockertest.RunOptions{
 			Repository: "postgres",
-			Tag:        "14.0",
+			Tag:        "13.4",
 			Env: []string{
 				"POSTGRES_PASSWORD=P@ssw0rd",
 			},
@@ -230,7 +229,7 @@ func TestGetPhonesByEmailPrefix(t *testing.T) {
 	}
 
 	emailTestPrefix := "test_get_phones_by_email_prefix"
-	employees := []storage.FoundPhone{
+	employee := []storage.FoundPhone{
 		{
 			FirstName: "Dale",
 			LastName:  "Cooper",
@@ -251,15 +250,11 @@ func TestGetPhonesByEmailPrefix(t *testing.T) {
 		},
 	}
 	batch := &pgx.Batch{}
-	const query = `INSERT INTO employees (first_name, last_name, phone, email, salary, manager_id, department, position)
+	const query = `INSERT INTO employees (fname, lname, salary, phone, email)
 		VALUES(
-			$1, $2, $3, $4, 
-			45000,
-			(SELECT id FROM employees WHERE first_name = 'Bob' AND last_name = 'Morane' LIMIT 1),
-			(SELECT id FROM departments WHERE name = 'R&D'),
-			(SELECT id FROM positions WHERE title = 'Backend Dev')
+			$1, $2, 50000, $3, $4
 		)`
-	for _, e := range employees {
+	for _, e := range employee {
 		batch.Queue(
 			query,
 			e.FirstName,
@@ -285,16 +280,16 @@ func TestGetPhonesByEmailPrefix(t *testing.T) {
 	if err != nil {
 		t.Fatalf("GetPhonesByEmailPrefix failed: %v", err)
 	}
-	if len(phones) != len(employees) {
-		t.Fatalf("expected length of found phones to be %d, got %d", len(employees), len(phones))
+	if len(phones) != len(employee) {
+		t.Fatalf("expected length of found phones to be %d, got %d", len(employee), len(phones))
 	}
-	sort.Slice(employees, func(i int, j int) bool {
-		return employees[i].FirstName < employees[j].FirstName
+	sort.Slice(employee, func(i int, j int) bool {
+		return employee[i].FirstName < employee[j].FirstName
 	})
 	sort.Slice(phones, func(i int, j int) bool {
 		return phones[i].FirstName < phones[j].FirstName
 	})
-	for i, e := range employees {
+	for i, e := range employee {
 		p := *phones[i]
 		if e != p {
 			t.Fatalf("expected object %v is not equal to the actual object %v", e, p)

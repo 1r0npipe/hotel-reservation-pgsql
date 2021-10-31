@@ -3,7 +3,6 @@ package storage
 import (
 	"context"
 	"fmt"
-	"time"
 
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
@@ -11,14 +10,9 @@ import (
 
 type Employee struct {
 	ID         int       `gorm:"column:id"`
-	EmployeeID string    `gorm:"column:employee_id"`
 	Fname      string    `gorm:"column:fname"`
 	Lname      string    `gorm:"column:lname"`
 	Salary     string    `gorm:"column:salary"`
-	StartedAt  time.Time `gorm:"column:started_at"`
-	LeftAt     time.Time `gorm:"column:left_at"`
-	Active     bool      `gorm:"column:active"`
-	Manager    int       `gorm:"column:manager"`
 	Phone      string    `gorm:"column:phone"`
 	Email      string    `gorm:"column:email"`
 }

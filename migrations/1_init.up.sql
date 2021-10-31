@@ -28,22 +28,16 @@ CREATE TABLE customer(
     PRIMARY KEY (id)
 );
 
-DROP TABLE IF EXISTS employee CASCADE;
-CREATE TABLE employee(
+DROP TABLE IF EXISTS employees CASCADE;
+CREATE TABLE employees(
     id INT GENERATED ALWAYS AS IDENTITY,
-    employee_id INT UNIQUE NOT NULL,
     fname VARCHAR(50) NOT NULL,
     lname VARCHAR(50) NOT NULL,
     salary numeric CHECK(salary > 0),
-    started_at DATE NOT NULL,
-    left_at DATE NOT NULL,
-    active BOOLEAN,
-    email VARCHAR(50),
     phone VARCHAR(20),
-    manager INT REFERENCES employee (id),
-
+    email VARCHAR(50),
+    
     PRIMARY KEY (id),
-    constraint reference_manager_id FOREIGN KEY (manager) references employee (id) on delete restrict      
 );
 
 DROP TABLE IF EXISTS reservation CASCADE;
