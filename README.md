@@ -1,2 +1,5 @@
-# gopher-corp-backend
-The Gopher Corp. backend server
+# Migration
+В каталоге migration есть скрипты которые переводят БД в то или иное состояние
+
+Все интеграционные и обычные тесты проходят с участием как у Сергея Ш., лог в файле result.log
+
